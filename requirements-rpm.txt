@@ -429,7 +429,6 @@ python-werkzeug
 python-wsgilog-0.3-1
 python-wsgiref-0.1.2-6.el6
 pyxattr-0.5.0-1.el6
-qemu-1.2.0-24.el6
 qpid-cpp-server-ssl-0.14-22.el6_3
 qpid-cpp-server-store-0.14-22.el6_3
 qpid-qmf-0.14-14.el6_3

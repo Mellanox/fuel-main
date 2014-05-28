@@ -2,6 +2,9 @@
 
 INITRAMROOT:=$(BUILD_DIR)/bootstrap/initram-root
 
+# Build rpms w/ recent driver  from mlnx-en-2.1-1.0.0.tgz
+MLX_RPMS_PATH:=$(FATHER_DIR)/OFED_RH/
+
 BOOTSTRAP_RPMS:=\
 	bash \
 	byacc \
@@ -202,8 +205,10 @@ $(BUILD_DIR)/bootstrap/prepare-initram-root.done: \
 		( cd $(INITRAMROOT); sudo cpio -idm './lib/modules/*' './boot/vmlinuz*' )
 	find $(LOCAL_MIRROR_CENTOS_OS_BASEURL) -name 'kernel-firmware-2.*' | xargs rpm2cpio | \
 		( cd $(INITRAMROOT); sudo cpio -idm './lib/firmware/*' )
+	find $(MLX_RPMS_PATH) -name 'kmod*' | xargs rpm2cpio | \
+		( cd $(INITRAMROOT); sudo cpio -idm './lib/modules/*' './boot/vmlinuz*' )
 	for version in `ls -1 $(INITRAMROOT)/lib/modules`; do \
-		sudo depmod -b $(INITRAMROOT) $$version; \
+		sudo chroot $(INITRAMROOT) depmod $$version; \
 	done
 
 	# Some extra actions

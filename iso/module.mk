@@ -70,7 +70,8 @@ $(BUILD_DIR)/iso/isoroot-files.done: \
 		$(ISOROOT)/bootstrap_admin_node.conf \
 		$(ISOROOT)/send2syslog.py \
 		$(ISOROOT)/version.yaml \
-		$(ISOROOT)/puppet-slave.tgz
+		$(ISOROOT)/puppet-slave.tgz \
+		$(ISOROOT)/ofed-files
 	$(ACTION.TOUCH)
 
 $(ISOROOT)/.discinfo: $(SOURCE_DIR)/iso/.discinfo ; $(ACTION.COPY)
@@ -105,12 +106,19 @@ $(ISOROOT)/puppet-slave.tgz: \
 	gzip -c -9 $(ISOROOT)/puppet-slave.tar > $@ && \
 		rm $(ISOROOT)/puppet-slave.tar
 
+$(ISOROOT)/ofed-files:
+	cp $(FATHER_DIR)/fuel-mellanox-files/OFED/MLNX_OFED_LINUX-2.1-1.0.0-rhel6.4-x86_64.tgz $(ISOROOT)
+	cp $(FATHER_DIR)/fuel-mellanox-files/OFED/fw-2.30.8000_32vf.bin $(ISOROOT)
 
 ########################
 # Bootstrap image.
 ########################
 
 BOOTSTRAP_FILES:=initramfs.img linux
+
+# Valid sources: $(BUILD_DIR) or where the initramfs.img and linux files are placed
+BOOTSTRAP_SOURCE:=$(BUILD_DIR)
+#$(FATHER_DIR)/fuel-mellanox-files/
 
 $(BUILD_DIR)/iso/isoroot-bootstrap.done: \
 		$(ISOROOT)/bootstrap/bootstrap.rsa \
@@ -120,7 +128,7 @@ $(BUILD_DIR)/iso/isoroot-bootstrap.done: \
 $(addprefix $(ISOROOT)/bootstrap/, $(BOOTSTRAP_FILES)): \
 		$(BUILD_DIR)/bootstrap/build.done
 	@mkdir -p $(@D)
-	cp $(BUILD_DIR)/bootstrap/$(@F) $@
+	cp $(BOOTSTRAP_SOURCE)/bootstrap/$(@F) $@
 
 $(ISOROOT)/bootstrap/bootstrap.rsa: $(SOURCE_DIR)/bootstrap/ssh/id_rsa ; $(ACTION.COPY)
 

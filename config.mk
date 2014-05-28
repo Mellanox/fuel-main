@@ -18,7 +18,7 @@ MASTER_DNS?=10.20.0.1
 MASTER_NETMASK?=255.255.255.0
 MASTER_GW?=10.20.0.1
 
-PRODUCT_VERSION:=4.1A
+PRODUCT_VERSION:=4.1B_MELLANOX
 
 CENTOS_MAJOR:=6
 CENTOS_MINOR:=4
@@ -26,10 +26,11 @@ CENTOS_RELEASE:=$(CENTOS_MAJOR).$(CENTOS_MINOR)
 CENTOS_ARCH:=x86_64
 UBUNTU_RELEASE:=precise
 
-ISO_NAME?=fuelweb-centos-$(CENTOS_RELEASE)-$(CENTOS_ARCH)
+ISO_NAME?=fuel4.1-mellanox-centos-$(CENTOS_RELEASE)-$(CENTOS_ARCH)-5
 ISO_DIR?=$(BUILD_DIR)/iso
 ISO_DIR:=$(abspath $(ISO_DIR))
-ISO_PATH:=$(ISO_DIR)/$(ISO_NAME).iso
+#ISO_PATH:=$(ISO_DIR)/$(ISO_NAME).iso
+ISO_PATH:=/tmp/$(ISO_NAME).iso
 IMG_PATH:=$(ISO_DIR)/$(ISO_NAME).img
 
 # Do not compress javascript and css files
@@ -39,15 +40,22 @@ NO_UI_OPTIMIZE:=0
 CACHE_RHEL:=0
 
 # Repos and versions
-FUELLIB_COMMIT?=stable/4.1
-NAILGUN_COMMIT?=stable/4.1
-ASTUTE_COMMIT?=stable/4.1
-OSTF_COMMIT?=stable/4.1
+FUELLIB_COMMIT?=stable/4.1_mellanox
+NAILGUN_COMMIT?=stable/4.1_mellanox
+ASTUTE_COMMIT?=stable/4.1_mellanox
+OSTF_COMMIT?=stable/4.1_mellanox
 
-FUELLIB_REPO?=https://github.com/stackforge/fuel-library.git
-NAILGUN_REPO?=https://github.com/stackforge/fuel-web.git
-ASTUTE_REPO?=https://github.com/stackforge/fuel-astute.git
-OSTF_REPO?=https://github.com/stackforge/fuel-ostf.git
+FATHER_DIR?=$(TOP_DIR)/../
+FATHER_DIR:=$(abspath $(FATHER_DIR))
+FUELLIB_REPO?=$(FATHER_DIR)/fuel-library/
+NAILGUN_REPO?=$(FATHER_DIR)/fuel-web/
+ASTUTE_REPO?=$(FATHER_DIR)/fuel-astute/
+OSTF_REPO?=$(FATHER_DIR)/fuel-ostf/
+
+#https://github.com/stackforge/fuel-library.git
+#https://github.com/stackforge/fuel-web.git
+#https://github.com/stackforge/fuel-astute.git
+#https://github.com/stackforge/fuel-ostf.git
 
 # Gerrit URLs and commits
 FUELLIB_GERRIT_URL?=https://review.openstack.org/stackforge/fuel-library
