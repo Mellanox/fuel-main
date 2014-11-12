@@ -79,14 +79,16 @@ keepalived-1.2.4-1.el6
 kernel
 kernel-devel
 kernel-headers
+#kernel-ib
 kernel-lt
 kernel-lt-devel
 kernel-lt-headers
 kmod-openvswitch
 leveldb-1.7.0-2.el6
 libevent-devel-1.4.13-4.el6
+#libibverbs
 libmemcached
-libmlx4
+#libmlx4
 libmongodb
 libuv-devel-0.10.4-1.el6
 linux-firmware
