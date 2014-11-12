@@ -193,6 +193,10 @@ $(BUILD_DIR)/bootstrap/prepare-initram-root.done: \
 		( cd $(INITRAMROOT); sudo cpio -idm './lib/firmware/*' )
 	find $(LOCAL_MIRROR_CENTOS_OS_BASEURL) -name 'libmlx4*' | xargs rpm2cpio | \
 		( cd $(INITRAMROOT); sudo cpio -idm './etc/*' './usr/lib64/*' )
+	find $(LOCAL_MIRROR_CENTOS_OS_BASEURL) -name 'kernel-ib*' | xargs rpm2cpio | \
+		( cd $(INITRAMROOT); sudo cpio -idm -f './etc/infiniband/openib.conf' './etc/init.d/openibd' './etc/modprobe.d/mlnx.conf')
+	find $(LOCAL_MIRROR_CENTOS_OS_BASEURL) -name 'libxml2-python*' | xargs rpm2cpio | \
+		( cd $(INITRAMROOT); sudo cpio -idm './*')
 	for version in `ls -1 $(INITRAMROOT)/lib/modules`; do \
 		sudo depmod -b $(INITRAMROOT) $$version; \
 	done

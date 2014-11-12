@@ -162,6 +162,7 @@ kernel-0:2.6.32-431.20.3.el6.x86_64
 kernel-devel-0:2.6.32-431.20.3.el6.x86_64
 kernel-firmware-0:2.6.32-431.20.3.el6.x86_64
 kernel-headers-0:2.6.32-431.20.3.el6.x86_64
+kernel-ib-2.3-3.10.46_1.mira1.x86_64_OFED.cloudX.rpm
 kernel-lt
 kernel-lt-devel
 kernel-lt-headers
